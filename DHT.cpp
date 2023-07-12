@@ -70,6 +70,22 @@ void DHT::begin(uint8_t usec) {
   DEBUG_PRINT("DHT max clock cycles: ");
   DEBUG_PRINTLN(_maxcycles, DEC);
   pullTime = usec;
+
+  /** New for Auto Sense **/
+  if (_type >= DHTAUTO) {						// DHTAUTO or DHTERR Find the best match DHT22 or 11
+	  _type = DHT22; if (read(true)) return;	// DHT22 errors when connected sensor is DHT11
+	  _type = DHT11; if (read(true)) return;
+	  _type = DHTERR;							// When both fail sensor is probably not connected
+  }	// DHTAUTO
+
+}
+
+/*!
+ *  @brief  Expose the selected sensor type
+ *
+ */
+uint8_t DHT::dht_Type() {
+	return _type;
 }
 
 /*!
