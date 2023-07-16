@@ -43,7 +43,12 @@ DHT::DHT(uint8_t pin, uint8_t type, uint8_t count) {
   (void)count; // Workaround to avoid compiler warning.
   _pin = pin;
   _type = type;
-#ifdef __AVR
+
+  _lastresult = false;
+  pullTime=0;
+  _lastreadtime = 0;
+
+  #ifdef __AVR
   _bit = digitalPinToBitMask(pin);
   _port = digitalPinToPort(pin);
 #endif
@@ -86,6 +91,14 @@ void DHT::begin(uint8_t usec) {
  */
 uint8_t DHT::dht_Type() {
 	return _type;
+}
+
+/*!
+ *  @brief  Expose the selected sensor pin
+ *
+ */
+uint8_t DHT::pin(){
+	return _pin;
 }
 
 /*!

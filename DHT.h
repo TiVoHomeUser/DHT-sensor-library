@@ -14,6 +14,13 @@
  *
  *  MIT license, all text above must be included in any redistribution
  */
+/**
+ *
+ * Addition of DHTAUTO Victor Wheeler TiVoHomeUser@github
+ *
+ *
+ *
+ */
 
 #ifndef DHT_H
 #define DHT_H
@@ -76,6 +83,7 @@ public:
   float readHumidity(bool force = false);
   bool read(bool force = false);
   uint8_t dht_Type();	// Expose the sensor type
+  uint8_t pin();		// Expose pin
 
 private:
   uint8_t data[5];
